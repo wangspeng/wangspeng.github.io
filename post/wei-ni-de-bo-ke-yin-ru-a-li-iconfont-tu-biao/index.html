@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>为你的博客引入阿里Iconfont图标 | 吾爱网络工作室</title>
+<meta name="description" content="路就在脚下">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wuai.link/favicon.ico?v=1715441027957">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wuai.link/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wuai.link">吾爱网络工作室</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>为你的博客引入阿里Iconfont图标</h1>
+            <p class="article-meta">
+              2024-05-10
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p>如何为Hexo博客引入阿里巴巴矢量库</p>
+<!-- more -->
+<h2 id="引言">引言</h2>
+<p>在搭建和美化个人博客时，图标资源是我们经常需要用到的元素。阿里巴巴矢量图标库因其丰富的图标种类和极高的自定义性，深受开发者喜爱。本文将详细介绍如何在你的Hexo博客中引入并使用阿里巴巴矢量图标库。</p>
+<h2 id="步骤一获取图标链接">步骤一：获取图标链接</h2>
+<p>首先，访问<a href="https://www.iconfont.cn/">阿里巴巴矢量图标库</a>，搜索并选择你需要的图标，添加到项目或者购物车，然后点击“下载至本地”。在下载后的文件夹中，你可以找到一个名为 <code>iconfont.css</code>的样式文件，这个文件包含了所有你选择图标的CSS样式代码。</p>
+<h2 id="步骤二引入-iconfontcss">步骤二：引入 iconfont.css</h2>
+<p>将下载的<code>iconfont.css</code>文件上传至你的<code>Hexo</code>主题的<code>source/css/</code>目录下（如果该目录不存在，请自行创建）。 在你的主题的主要CSS文件（如：<code>main.css</code>或<code>style.styl</code>等），通过<code>@import</code>语句引入<code>iconfont.css</code>：</p>
+<pre><code class="language-markdown">/* 如果是css文件 */
+@import &quot;css/iconfont.css&quot;;
+
+/* 如果是stylus文件 */
+@import &quot;iconfont.styl&quot;;
+</code></pre>
+<p>确保路径正确对应你放置 iconfont.css 的位置。</p>
+<h2 id="步骤三在文章或页面中使用图标">步骤三：在文章或页面中使用图标</h2>
+<p>在HTML模板或Markdown文件中，可以使用类名来引用图标。假设你在阿里图标库中选中的图标类名为 .icon-xxx ，则在Markdown文件中插入图标的方式如下：</p>
+<pre><code class="language-html">&lt;i class=&quot;iconfont icon-xxx&quot;&gt;&lt;/i&gt;
+</code></pre>
+<p>请将 <code>icon-xxx</code>替换为你实际使用的图标类名。</p>
+<h2 id="结语">结语</h2>
+<p>至此，你已经成功地在你的Hexo博客中引入并使用了阿里巴巴矢量图标库。通过这种方式，你可以轻松定制博客的各个部分，丰富其视觉效果，提升用户体验。<br>
+注意：具体的引入方式可能因不同的Hexo主题而有所差异，请根据实际情况进行适当调整。同时，建议在引入第三方资源时遵循版权协议，合理合法使用。</p>
+<p>更完整更加完美的教程，请看店长的<a href="https://akilar.top/posts/d2ebecef/">Iconfont Inject</a>文章</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wuai.link/post/6d528881/">
+                <h3 class="post-title">
+                  hexo主题butterfly鼠标小点追拖影追踪
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wuai.link/images/avatar.png?v=1715441027957" class="no-responsive avatar">
+    <div class="text-muted">路就在脚下</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wuai.link/post/zzfy/">植物栽培实验</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/shouke/">第一次授课和管局驳回备案</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/hcyqdyh/">域名注册转入大优惠</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/3588okpl/">西部数码域名转入半价活动</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/378ll3/">typecho插件合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/8778/">提问的智慧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/4a69/">git的一些使用</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/11f1/">Git常见错误简单解决方法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/ru-he-xia-zai-an-zhuang-git/">如何下载安装git</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/dae98a7e/">Hexo插件推荐</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wuai.link/tag/35zIPvsAO/" class="badge ">
+          栽培
+        </a>
+      
+        <a href="https://wuai.link/tag/qnh9Do3Qx/" class="badge ">
+          生活
+        </a>
+      
+        <a href="https://wuai.link/tag/A1uMD9J45/" class="badge ">
+          薅羊毛
+        </a>
+      
+        <a href="https://wuai.link/tag/-cBBSHtPYb/" class="badge secondary">
+          西部数码
+        </a>
+      
+        <a href="https://wuai.link/tag/W7LaiK609u/" class="badge ">
+          域名
+        </a>
+      
+        <a href="https://wuai.link/tag/yD9UD6T44/" class="badge secondary">
+          typecho插件
+        </a>
+      
+        <a href="https://wuai.link/tag/kc2G8x_94/" class="badge secondary">
+          碎碎念
+        </a>
+      
+        <a href="https://wuai.link/tag/IzcUs7pro/" class="badge warning">
+          git
+        </a>
+      
+        <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge warning">
+          教程
+        </a>
+      
+        <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge ">
+          技术
+        </a>
+      
+        <a href="https://wuai.link/tag/8_5TE1VCQ/" class="badge ">
+          hexo插件
+        </a>
+      
+        <a href="https://wuai.link/tag/Sme-vvRu78/" class="badge secondary">
+          博客搭建
+        </a>
+      
+        <a href="https://wuai.link/tag/KkC2l6aHS/" class="badge secondary">
+          css美化
+        </a>
+      
+        <a href="https://wuai.link/tag/vjlrwrvx8/" class="badge secondary">
+          cdn
+        </a>
+      
+        <a href="https://wuai.link/tag/rzIED2ls56/" class="badge success">
+          gpg
+        </a>
+      
+        <a href="https://wuai.link/tag/vVabS1NWc/" class="badge success">
+          旅行
+        </a>
+      
+        <a href="https://wuai.link/tag/DdeNnxpfU/" class="badge success">
+          挂机宝
+        </a>
+      
+        <a href="https://wuai.link/tag/2qoizTI4q/" class="badge secondary">
+          博客美化
+        </a>
+      
+        <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge ">
+          魔改
+        </a>
+      
+        <a href="https://wuai.link/tag/iQF49x2-z/" class="badge secondary">
+          css
+        </a>
+      
+        <a href="https://wuai.link/tag/Z7OXpqkoD/" class="badge secondary">
+          hexo
+        </a>
+      
+        <a href="https://wuai.link/tag/SCgDBzM-8/" class="badge success">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wuai.link/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

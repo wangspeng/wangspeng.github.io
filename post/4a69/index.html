@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>git的一些使用 | 吾爱网络工作室</title>
+<meta name="description" content="路就在脚下">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wuai.link/favicon.ico?v=1715441027957">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wuai.link/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wuai.link">吾爱网络工作室</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>git的一些使用</h1>
+            <p class="article-meta">
+              2024-05-11
+              
+                <a href="https://wuai.link/tag/IzcUs7pro/" class="badge secondary">
+                  git
+                </a>
+              
+                <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge secondary">
+                  教程
+                </a>
+              
+                <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge secondary">
+                  技术
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h4 id="1查看git配置信息">1.查看git配置信息</h4>
+<pre><code class="language-shell">git config --list
+</code></pre>
+<h4 id="2查看git用户名-密码-邮箱的配置">2.查看git用户名、密码、邮箱的配置</h4>
+<pre><code class="language-shell">git config user.name
+git config user.password
+git config user.email
+</code></pre>
+<h4 id="3设置git用户名-密码-邮箱的配置全局配置">3.设置git用户名、密码、邮箱的配置（全局配置）</h4>
+<pre><code class="language-shell">git config --global user.name &quot;用户名&quot;
+git config --global user.password &quot;密码&quot;
+git config --global user.email &quot;邮箱&quot;
+</code></pre>
+<h4 id="4修改git用户名-密码-邮箱的配置跟设置语法一样没有用户名就添加有了用户名就修改">4.修改git用户名、密码、邮箱的配置（跟设置语法一样，没有用户名就添加，有了用户名就修改）</h4>
+<pre><code class="language-shell">git config user.name &quot;freedom&quot;
+</code></pre>
+<h4 id="4修改git用户名-密码-邮箱的配置全局配置">4.修改git用户名、密码、邮箱的配置（全局配置）</h4>
+<pre><code class="language-shell">git config --global user.name &quot;freedom&quot;
+</code></pre>
+<h4 id="5git与远程仓库">5.git与远程仓库</h4>
+<pre><code class="language-shell">git init # 初始化仓库
+git remote rm origin # 删除原有仓库链接
+git remote add origin git@github.com:[GithubUsername]/[SourceRepo].git #[SourceRepo]为新的存放源码的github私有仓库
+git checkout -b master # 切换到master分支，
+#2020年10月后github新建仓库默认分支改为main，注意更改
+# 如果不是，后面的所有设置的分支记得保持一致
+git add .
+git commit -m &quot;github action update&quot;
+git push origin master
+#2020年10月后github新建仓库默认分支改为main，注意更改
+</code></pre>
+<h4 id="6从本地缓存中删除非必要提交到git的文件目录">6.从本地缓存中删除非必要提交到git的文件目录</h4>
+<pre><code class="language-shell">git rm -r --cached .idea
+git rm -r --cached target
+git commit -m &quot;删除不必要的文件提交&quot;
+</code></pre>
+<p>之后再将这次commit操作push到远程库里即可，这样之后版本控制就不会再将这些不必要的文件或者目录给提交了</p>
+<h4 id="7git推送报错可以考虑">7.git推送报错，可以考虑</h4>
+<pre><code class="language-shell">git init //初始化仓库
+git add .(文件name)                  //添加文件到本地暂存
+git commit -m “first commit”        //添加文件描述信息
+git remote add origin    远程仓库地址 //链接远程仓库
+git push -u origin master          //把本地仓库的文件推送到远程仓master                                      分支
+</code></pre>
+<p>文件版本没有及时更新，两个分支是两个不同的版本，具有不同的提交历史，决绝方式就是在原本的命令之后加上一句命令即可：</p>
+<pre><code class="language-shell">git pull origin master --allow-unrelated-histories
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wuai.link/post/11f1/">
+                <h3 class="post-title">
+                  Git常见错误简单解决方法
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wuai.link/images/avatar.png?v=1715441027957" class="no-responsive avatar">
+    <div class="text-muted">路就在脚下</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wuai.link/post/zzfy/">植物栽培实验</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/shouke/">第一次授课和管局驳回备案</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/hcyqdyh/">域名注册转入大优惠</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/3588okpl/">西部数码域名转入半价活动</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/378ll3/">typecho插件合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/8778/">提问的智慧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/4a69/">git的一些使用</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/11f1/">Git常见错误简单解决方法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/ru-he-xia-zai-an-zhuang-git/">如何下载安装git</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/dae98a7e/">Hexo插件推荐</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wuai.link/tag/35zIPvsAO/" class="badge success">
+          栽培
+        </a>
+      
+        <a href="https://wuai.link/tag/qnh9Do3Qx/" class="badge secondary">
+          生活
+        </a>
+      
+        <a href="https://wuai.link/tag/A1uMD9J45/" class="badge ">
+          薅羊毛
+        </a>
+      
+        <a href="https://wuai.link/tag/-cBBSHtPYb/" class="badge secondary">
+          西部数码
+        </a>
+      
+        <a href="https://wuai.link/tag/W7LaiK609u/" class="badge secondary">
+          域名
+        </a>
+      
+        <a href="https://wuai.link/tag/yD9UD6T44/" class="badge ">
+          typecho插件
+        </a>
+      
+        <a href="https://wuai.link/tag/kc2G8x_94/" class="badge secondary">
+          碎碎念
+        </a>
+      
+        <a href="https://wuai.link/tag/IzcUs7pro/" class="badge secondary">
+          git
+        </a>
+      
+        <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge secondary">
+          教程
+        </a>
+      
+        <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge warning">
+          技术
+        </a>
+      
+        <a href="https://wuai.link/tag/8_5TE1VCQ/" class="badge warning">
+          hexo插件
+        </a>
+      
+        <a href="https://wuai.link/tag/Sme-vvRu78/" class="badge secondary">
+          博客搭建
+        </a>
+      
+        <a href="https://wuai.link/tag/KkC2l6aHS/" class="badge warning">
+          css美化
+        </a>
+      
+        <a href="https://wuai.link/tag/vjlrwrvx8/" class="badge secondary">
+          cdn
+        </a>
+      
+        <a href="https://wuai.link/tag/rzIED2ls56/" class="badge secondary">
+          gpg
+        </a>
+      
+        <a href="https://wuai.link/tag/vVabS1NWc/" class="badge secondary">
+          旅行
+        </a>
+      
+        <a href="https://wuai.link/tag/DdeNnxpfU/" class="badge secondary">
+          挂机宝
+        </a>
+      
+        <a href="https://wuai.link/tag/2qoizTI4q/" class="badge secondary">
+          博客美化
+        </a>
+      
+        <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge warning">
+          魔改
+        </a>
+      
+        <a href="https://wuai.link/tag/iQF49x2-z/" class="badge secondary">
+          css
+        </a>
+      
+        <a href="https://wuai.link/tag/Z7OXpqkoD/" class="badge warning">
+          hexo
+        </a>
+      
+        <a href="https://wuai.link/tag/SCgDBzM-8/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wuai.link/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

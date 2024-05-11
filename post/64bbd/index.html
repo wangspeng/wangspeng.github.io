@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>hexo主题butterfly首页字体黑夜霓虹灯效果 | 吾爱网络工作室</title>
+<meta name="description" content="路就在脚下">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wuai.link/favicon.ico?v=1715441027957">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wuai.link/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wuai.link">吾爱网络工作室</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>hexo主题butterfly首页字体黑夜霓虹灯效果</h1>
+            <p class="article-meta">
+              2024-05-10
+              
+                <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge warning">
+                  魔改
+                </a>
+              
+                <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge success">
+                  教程
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p>首页的大标题和小标题还有logo显示霓虹灯闪烁</p>
+<!-- more -->
+<h2 id="黑夜霓虹灯">黑夜霓虹灯</h2>
+<p>此教程会有两处地方有霓虹灯效果：一个是大标题和个人信息的动态霓虹灯，默认周期为 1200ms；另外的是菜单栏的小字有夜光效果，为你的博客增添几分赛博朋克风～</p>
+<h3 id="1-首先在自定义的样式文件">1. 首先在自定义的样式文件</h3>
+<p><code>[BlogRoot]\source\css\custom.css</code> 中引入以下代码，这部分代码是菜单栏文字有夜光效果的，变量部分 <code>var(--theme-color)</code> 可以换为自己喜欢的颜色，例如紫色 <code>rgb(179, 71, 241)</code>：</p>
+<pre><code class="language-css">/* 夜间模式菜单栏发光字 */
+[data-theme=&quot;dark&quot;] #nav .site-page,
+[data-theme=&quot;dark&quot;] #nav .menus_items .menus_item .menus_item_child li a {
+  text-shadow: 0 0 2px var(--theme-color) !important;
+}
+
+/* 手机端适配 */
+[data-theme=&quot;dark&quot;] #sidebar #sidebar-menus .menus_items .site-page {
+  text-shadow: 0 0 2px var(--theme-color) !important;
+}
+</code></pre>
+<h3 id="2-新建文件">2. 新建文件</h3>
+<p><code>[BlogRoot]\source\js\light.js</code> 并写入以下代码，本质就是计时器，大家可以根据自己的喜好调节闪烁周期，默认为 <code>1200ms</code>：</p>
+<pre><code class="language-js">// 霓虹灯效果
+// 颜色数组
+var arr = [&quot;#39c5bb&quot;, &quot;#f14747&quot;, &quot;#f1a247&quot;, &quot;#f1ee47&quot;, &quot;#b347f1&quot;, &quot;#1edbff&quot;, &quot;#ed709b&quot;, &quot;#5636ed&quot;];
+// 颜色索引
+var idx = 0;
+
+// 切换颜色
+function changeColor() {
+    // 仅夜间模式才启用
+    if (document.getElementsByTagName('html')[0].getAttribute('data-theme') == 'dark') {
+        if (document.getElementById(&quot;site-name&quot;))
+            document.getElementById(&quot;site-name&quot;).style.textShadow = arr[idx] + &quot; 0 0 15px&quot;;
+        if (document.getElementById(&quot;site-title&quot;))
+            document.getElementById(&quot;site-title&quot;).style.textShadow = arr[idx] + &quot; 0 0 15px&quot;;
+        if (document.getElementById(&quot;site-subtitle&quot;))
+            document.getElementById(&quot;site-subtitle&quot;).style.textShadow = arr[idx] + &quot; 0 0 10px&quot;;
+        if (document.getElementById(&quot;post-info&quot;))
+            document.getElementById(&quot;post-info&quot;).style.textShadow = arr[idx] + &quot; 0 0 5px&quot;;
+        try {
+            document.getElementsByClassName(&quot;author-info__name&quot;)[0].style.textShadow = arr[idx] + &quot; 0 0 12px&quot;;
+            document.getElementsByClassName(&quot;author-info__description&quot;)[0].style.textShadow = arr[idx] + &quot; 0 0 12px&quot;;
+        } catch {
+            
+        }
+        idx++;
+        if (idx == 8) {
+            idx = 0;
+        }
+    } else {
+        // 白天模式恢复默认
+        if (document.getElementById(&quot;site-name&quot;))
+            document.getElementById(&quot;site-name&quot;).style.textShadow = &quot;#1e1e1ee0 1px 1px 1px&quot;;
+        if (document.getElementById(&quot;site-title&quot;))
+            document.getElementById(&quot;site-title&quot;).style.textShadow = &quot;#1e1e1ee0 1px 1px 1px&quot;;
+        if (document.getElementById(&quot;site-subtitle&quot;))
+            document.getElementById(&quot;site-subtitle&quot;).style.textShadow = &quot;#1e1e1ee0 1px 1px 1px&quot;;
+        if (document.getElementById(&quot;post-info&quot;))
+            document.getElementById(&quot;post-info&quot;).style.textShadow = &quot;#1e1e1ee0 1px 1px 1px&quot;;
+        try {
+            document.getElementsByClassName(&quot;author-info__name&quot;)[0].style.textShadow = &quot;&quot;;
+            document.getElementsByClassName(&quot;author-info__description&quot;)[0].style.textShadow = &quot;&quot;;
+        } catch {
+            
+        }
+    }
+}
+
+// 开启计时器
+window.onload = setInterval(changeColor, 1200);
+</code></pre>
+<h3 id="3-引入文件">3. 引入文件</h3>
+<p>在主题配置文件<code>_config.butterfly.yml</code> 引入以上两个文件，要注意的是，js 文件这里必须为 <code>defer</code>，不能为 <code>ansyc</code>，保证脚本会延迟到整个页面都解析完后再执行，此时才有对应的元素进行操作：</p>
+<pre><code class="language-ymd">inject:
+  head:
+    - &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/custom.css&quot; media=&quot;defer&quot; onload=&quot;this.media='all'&quot;&gt;
+  bottom: 
+    - &lt;script defer src=&quot;/js/light.js&quot;&gt;&lt;/script&gt; # 霓虹灯(必须defer否则有时候会不生效)
+</code></pre>
+<h3 id="4-重启项目即可看到效果">4. 重启项目即可看到效果</h3>
+<pre><code class="language-BASH">hexo cl; hexo s
+</code></pre>
+<blockquote>
+<p>来源于猕猴桃小哥哥</p>
+<p><a href="https://www.fomal.cc/posts/eec9786.html">博客魔改教程总结 (一) | Fomalhaut🥝</a></p>
+</blockquote>
+<script type="text/javascript">
+// 霓虹灯效果
+// 颜色数组
+var arr = ["#39c5bb", "#f14747", "#f1a247", "#f1ee47", "#b347f1", "#1edbff", "#ed709b", "#5636ed"];
+// 颜色索引
+var idx = 0;
+
+// 切换颜色
+function changeColor() {
+    // 仅夜间模式才启用
+    if (document.getElementsByTagName('html')[0].getAttribute('data-theme') == 'dark') {
+        if (document.getElementById("site-name"))
+            document.getElementById("site-name").style.textShadow = arr[idx] + " 0 0 15px";
+        if (document.getElementById("site-title"))
+            document.getElementById("site-title").style.textShadow = arr[idx] + " 0 0 15px";
+        if (document.getElementById("site-subtitle"))
+            document.getElementById("site-subtitle").style.textShadow = arr[idx] + " 0 0 10px";
+        if (document.getElementById("post-info"))
+            document.getElementById("post-info").style.textShadow = arr[idx] + " 0 0 5px";
+        try {
+            document.getElementsByClassName("author-info__name")[0].style.textShadow = arr[idx] + " 0 0 12px";
+            document.getElementsByClassName("author-info__description")[0].style.textShadow = arr[idx] + " 0 0 12px";
+        } catch {
+            
+        }
+        idx++;
+        if (idx == 8) {
+            idx = 0;
+        }
+    } else {
+        // 白天模式恢复默认
+        if (document.getElementById("site-name"))
+            document.getElementById("site-name").style.textShadow = "#1e1e1ee0 1px 1px 1px";
+        if (document.getElementById("site-title"))
+            document.getElementById("site-title").style.textShadow = "#1e1e1ee0 1px 1px 1px";
+        if (document.getElementById("site-subtitle"))
+            document.getElementById("site-subtitle").style.textShadow = "#1e1e1ee0 1px 1px 1px";
+        if (document.getElementById("post-info"))
+            document.getElementById("post-info").style.textShadow = "#1e1e1ee0 1px 1px 1px";
+        try {
+            document.getElementsByClassName("author-info__name")[0].style.textShadow = "";
+            document.getElementsByClassName("author-info__description")[0].style.textShadow = "";
+        } catch {
+            
+        }
+    }
+}
+
+// 开启计时器
+window.onload = setInterval(changeColor, 1200);
+</script>
+<style type="text/css">
+/* 夜间模式菜单栏发光字 */
+[data-theme="dark"] #nav .site-page,
+[data-theme="dark"] #nav .menus_items .menus_item .menus_item_child li a {
+  text-shadow: 0 0 2px var(--theme-color) !important;
+}
+
+/* 手机端适配 */
+[data-theme="dark"] #sidebar #sidebar-menus .menus_items .site-page {
+  text-shadow: 0 0 2px var(--theme-color) !important;
+}
+</style> 
+<h1 id="span-idpercent-onclickbtfscrolltodest0500效果看顶部点击我到顶部span"><span id="percent" onclick="btf.scrollToDest(0,500)">效果看顶部点击我到顶部</span></h1>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wuai.link/post/9ee2cd59/">
+                <h3 class="post-title">
+                  hexo 主题butterfly如何让你的博客拥有星空背景和流星特效
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wuai.link/images/avatar.png?v=1715441027957" class="no-responsive avatar">
+    <div class="text-muted">路就在脚下</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wuai.link/post/zzfy/">植物栽培实验</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/shouke/">第一次授课和管局驳回备案</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/hcyqdyh/">域名注册转入大优惠</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/3588okpl/">西部数码域名转入半价活动</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/378ll3/">typecho插件合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/8778/">提问的智慧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/4a69/">git的一些使用</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/11f1/">Git常见错误简单解决方法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/ru-he-xia-zai-an-zhuang-git/">如何下载安装git</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/dae98a7e/">Hexo插件推荐</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wuai.link/tag/35zIPvsAO/" class="badge secondary">
+          栽培
+        </a>
+      
+        <a href="https://wuai.link/tag/qnh9Do3Qx/" class="badge ">
+          生活
+        </a>
+      
+        <a href="https://wuai.link/tag/A1uMD9J45/" class="badge secondary">
+          薅羊毛
+        </a>
+      
+        <a href="https://wuai.link/tag/-cBBSHtPYb/" class="badge ">
+          西部数码
+        </a>
+      
+        <a href="https://wuai.link/tag/W7LaiK609u/" class="badge warning">
+          域名
+        </a>
+      
+        <a href="https://wuai.link/tag/yD9UD6T44/" class="badge secondary">
+          typecho插件
+        </a>
+      
+        <a href="https://wuai.link/tag/kc2G8x_94/" class="badge ">
+          碎碎念
+        </a>
+      
+        <a href="https://wuai.link/tag/IzcUs7pro/" class="badge ">
+          git
+        </a>
+      
+        <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge secondary">
+          教程
+        </a>
+      
+        <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge warning">
+          技术
+        </a>
+      
+        <a href="https://wuai.link/tag/8_5TE1VCQ/" class="badge warning">
+          hexo插件
+        </a>
+      
+        <a href="https://wuai.link/tag/Sme-vvRu78/" class="badge secondary">
+          博客搭建
+        </a>
+      
+        <a href="https://wuai.link/tag/KkC2l6aHS/" class="badge secondary">
+          css美化
+        </a>
+      
+        <a href="https://wuai.link/tag/vjlrwrvx8/" class="badge secondary">
+          cdn
+        </a>
+      
+        <a href="https://wuai.link/tag/rzIED2ls56/" class="badge secondary">
+          gpg
+        </a>
+      
+        <a href="https://wuai.link/tag/vVabS1NWc/" class="badge warning">
+          旅行
+        </a>
+      
+        <a href="https://wuai.link/tag/DdeNnxpfU/" class="badge success">
+          挂机宝
+        </a>
+      
+        <a href="https://wuai.link/tag/2qoizTI4q/" class="badge ">
+          博客美化
+        </a>
+      
+        <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge secondary">
+          魔改
+        </a>
+      
+        <a href="https://wuai.link/tag/iQF49x2-z/" class="badge secondary">
+          css
+        </a>
+      
+        <a href="https://wuai.link/tag/Z7OXpqkoD/" class="badge warning">
+          hexo
+        </a>
+      
+        <a href="https://wuai.link/tag/SCgDBzM-8/" class="badge warning">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wuai.link/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

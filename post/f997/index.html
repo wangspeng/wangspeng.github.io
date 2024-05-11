@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>如何发布自己的npm包 | 吾爱网络工作室</title>
+<meta name="description" content="路就在脚下">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wuai.link/favicon.ico?v=1715441027957">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wuai.link/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wuai.link">吾爱网络工作室</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>如何发布自己的npm包</h1>
+            <p class="article-meta">
+              2024-05-10
+              
+                <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge secondary">
+                  技术
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h4 id="1首先需要注册一个-npm-的账号-访问npm-注册页面">1.首先需要注册一个 npm 的账号。访问<a href="https://www.npmjs.com/signup/">npm 注册页面</a></h4>
+<figure data-type="image" tabindex="1"><img src="https://unpkg.com/shimail-img@1.0.0/0.1.png" alt="" loading="lazy"></figure>
+<p>完成邮箱验证，注册完成后进入账号管理界面:头像-&gt;Account，拉倒最上方，你会看到You have not verified your email address字样的提示，点击以后按提示步骤验证你的邮箱。</p>
+<figure data-type="image" tabindex="2"><img src="https://unpkg.com/image-blog@1.0.1/02.png" alt="" loading="lazy"></figure>
+<h4 id="2在电脑上新建一个文件夹比如image-blog">2.在电脑上新建一个文件夹（比如image-blog）</h4>
+<p>进入文件夹</p>
+<pre><code class="language-shell">npm init
+</code></pre>
+<p>进行初始化</p>
+<figure data-type="image" tabindex="3"><img src="https://unpkg.com/image-blog@1.0.2/03.png" alt="" loading="lazy"></figure>
+<p>最后会输出一段 package.json，请求确认，输入 yes 即可。</p>
+<h4 id="3然后输入发布指令我们就可以把包发布到-npm-上了">3.然后输入发布指令，我们就可以把包发布到 npm 上了。</h4>
+<pre><code class="language-shell">npm publish
+</code></pre>
+<h4 id="4jsdelivrnpm-的图片引用">4.jsdelivr+npm 的图片引用</h4>
+<p>可以看到 Npm 只需要提供包名即可。这也是一开始要求包名不重复的原因之一</p>
+<pre><code class="language-text">【jsd出品，网宿国内节点】
+https://cdn.jsdelivr.net/npm/:package@:version/:file
+【unpkg 自建】
+https://cdn.cbd.int/:package@:version/:file
+</code></pre>
+<p>当然你也可以利用<a href="https://unpkg.com/">unpkg</a>自建。(UNPKG 是一个内容源自 npm 的全球快速 CDN。它部署在 cloudflare 上，在大陆地区访问到的是香港节点。所以速度也不错。)</p>
+<pre><code class="language-text">https://unpkg.com/:package@:version/:file
+</code></pre>
+<h4 id="5包的更新">5.包的更新</h4>
+<p>每次更新必须更新版本号，如1.0.0     必须向上才能发布</p>
+<pre><code class="language-shell">npm config get registry // 你的是否是npm官方的源，不是请切回
+npm config set registry https://registry.npmjs.org
+npm whoami // 可以查看当前登录的npm用户
+npm version patch//补丁版本，最后一位数加1 
+npm version minor //增加了新功能 中间的数字加1 
+npm version major //大改动，不向下兼容 第一位数字加1
+// 强制卸载
+npm unpublish --force
+</code></pre>
+<p>注：大家也可以看看<a href="https://blog.anheyu.com/posts/72ea.html">鱼佬的文章</a></p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wuai.link/post/gridea-linux-ke-hu-duan-xiao-ji/">
+                <h3 class="post-title">
+                  Gridea Linux 客户端小记
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wuai.link/images/avatar.png?v=1715441027957" class="no-responsive avatar">
+    <div class="text-muted">路就在脚下</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wuai.link/post/zzfy/">植物栽培实验</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/shouke/">第一次授课和管局驳回备案</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/hcyqdyh/">域名注册转入大优惠</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/3588okpl/">西部数码域名转入半价活动</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/378ll3/">typecho插件合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/8778/">提问的智慧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/4a69/">git的一些使用</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/11f1/">Git常见错误简单解决方法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/ru-he-xia-zai-an-zhuang-git/">如何下载安装git</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/dae98a7e/">Hexo插件推荐</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wuai.link/tag/35zIPvsAO/" class="badge warning">
+          栽培
+        </a>
+      
+        <a href="https://wuai.link/tag/qnh9Do3Qx/" class="badge secondary">
+          生活
+        </a>
+      
+        <a href="https://wuai.link/tag/A1uMD9J45/" class="badge warning">
+          薅羊毛
+        </a>
+      
+        <a href="https://wuai.link/tag/-cBBSHtPYb/" class="badge secondary">
+          西部数码
+        </a>
+      
+        <a href="https://wuai.link/tag/W7LaiK609u/" class="badge secondary">
+          域名
+        </a>
+      
+        <a href="https://wuai.link/tag/yD9UD6T44/" class="badge success">
+          typecho插件
+        </a>
+      
+        <a href="https://wuai.link/tag/kc2G8x_94/" class="badge secondary">
+          碎碎念
+        </a>
+      
+        <a href="https://wuai.link/tag/IzcUs7pro/" class="badge warning">
+          git
+        </a>
+      
+        <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge warning">
+          教程
+        </a>
+      
+        <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge secondary">
+          技术
+        </a>
+      
+        <a href="https://wuai.link/tag/8_5TE1VCQ/" class="badge secondary">
+          hexo插件
+        </a>
+      
+        <a href="https://wuai.link/tag/Sme-vvRu78/" class="badge ">
+          博客搭建
+        </a>
+      
+        <a href="https://wuai.link/tag/KkC2l6aHS/" class="badge secondary">
+          css美化
+        </a>
+      
+        <a href="https://wuai.link/tag/vjlrwrvx8/" class="badge secondary">
+          cdn
+        </a>
+      
+        <a href="https://wuai.link/tag/rzIED2ls56/" class="badge ">
+          gpg
+        </a>
+      
+        <a href="https://wuai.link/tag/vVabS1NWc/" class="badge warning">
+          旅行
+        </a>
+      
+        <a href="https://wuai.link/tag/DdeNnxpfU/" class="badge secondary">
+          挂机宝
+        </a>
+      
+        <a href="https://wuai.link/tag/2qoizTI4q/" class="badge success">
+          博客美化
+        </a>
+      
+        <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge secondary">
+          魔改
+        </a>
+      
+        <a href="https://wuai.link/tag/iQF49x2-z/" class="badge ">
+          css
+        </a>
+      
+        <a href="https://wuai.link/tag/Z7OXpqkoD/" class="badge secondary">
+          hexo
+        </a>
+      
+        <a href="https://wuai.link/tag/SCgDBzM-8/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wuai.link/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

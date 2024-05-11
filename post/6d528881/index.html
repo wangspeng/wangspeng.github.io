@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>hexo主题butterfly鼠标小点追拖影追踪 | 吾爱网络工作室</title>
+<meta name="description" content="路就在脚下">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wuai.link/favicon.ico?v=1715441027957">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wuai.link/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wuai.link">吾爱网络工作室</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>hexo主题butterfly鼠标小点追拖影追踪</h1>
+            <p class="article-meta">
+              2024-05-10
+              
+                <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge secondary">
+                  魔改
+                </a>
+              
+                <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge success">
+                  教程
+                </a>
+              
+                <a href="https://wuai.link/tag/iQF49x2-z/" class="badge secondary">
+                  css
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p>单调的鼠标增加一点乐趣让小球跟着鼠标走</p>
+<!-- more -->
+<h1 id="鼠标小点追拖影追踪">鼠标小点追拖影追踪</h1>
+<ol>
+<li>新建文件 <code>[BlogRoot]\source\js\cursor.js</code>，在里面写上如下代码：</li>
+</ol>
+<pre><code class="language-js">var CURSOR;
+
+Math.lerp = (a, b, n) =&gt; (1 - n) * a + n * b;
+
+const getStyle = (el, attr) =&gt; {
+    try {
+        return window.getComputedStyle
+            ? window.getComputedStyle(el)[attr]
+            : el.currentStyle[attr];
+    } catch (e) {}
+    return &quot;&quot;;
+};
+
+class Cursor {
+    constructor() {
+        this.pos = {curr: null, prev: null};
+        this.pt = [];
+        this.create();
+        this.init();
+        this.render();
+    }
+
+    move(left, top) {
+        this.cursor.style[&quot;left&quot;] = `${left}px`;
+        this.cursor.style[&quot;top&quot;] = `${top}px`;
+    }
+
+    create() {
+        if (!this.cursor) {
+            this.cursor = document.createElement(&quot;div&quot;);
+            this.cursor.id = &quot;cursor&quot;;
+            this.cursor.classList.add(&quot;hidden&quot;);
+            document.body.append(this.cursor);
+        }
+
+        var el = document.getElementsByTagName('*');
+        for (let i = 0; i &lt; el.length; i++)
+            if (getStyle(el[i], &quot;cursor&quot;) == &quot;pointer&quot;)
+                this.pt.push(el[i].outerHTML);
+
+        document.body.appendChild((this.scr = document.createElement(&quot;style&quot;)));
+        // 这里改变鼠标指针的颜色 由svg生成
+        this.scr.innerHTML = `* {cursor: url(&quot;data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='8px' height='8px'&gt;&lt;circle cx='4' cy='4' r='4' opacity='.5'/&gt;&lt;/svg&gt;&quot;) 4 4, auto}`;
+    }
+
+    refresh() {
+        this.scr.remove();
+        this.cursor.classList.remove(&quot;hover&quot;);
+        this.cursor.classList.remove(&quot;active&quot;);
+        this.pos = {curr: null, prev: null};
+        this.pt = [];
+
+        this.create();
+        this.init();
+        this.render();
+    }
+
+    init() {
+        document.onmouseover  = e =&gt; this.pt.includes(e.target.outerHTML) &amp;&amp; this.cursor.classList.add(&quot;hover&quot;);
+        document.onmouseout   = e =&gt; this.pt.includes(e.target.outerHTML) &amp;&amp; this.cursor.classList.remove(&quot;hover&quot;);
+        document.onmousemove  = e =&gt; {(this.pos.curr == null) &amp;&amp; this.move(e.clientX - 8, e.clientY - 8); this.pos.curr = {x: e.clientX - 8, y: e.clientY - 8}; this.cursor.classList.remove(&quot;hidden&quot;);};
+        document.onmouseenter = e =&gt; this.cursor.classList.remove(&quot;hidden&quot;);
+        document.onmouseleave = e =&gt; this.cursor.classList.add(&quot;hidden&quot;);
+        document.onmousedown  = e =&gt; this.cursor.classList.add(&quot;active&quot;);
+        document.onmouseup    = e =&gt; this.cursor.classList.remove(&quot;active&quot;);
+    }
+
+    render() {
+        if (this.pos.prev) {
+            this.pos.prev.x = Math.lerp(this.pos.prev.x, this.pos.curr.x, 0.15);
+            this.pos.prev.y = Math.lerp(this.pos.prev.y, this.pos.curr.y, 0.15);
+            this.move(this.pos.prev.x, this.pos.prev.y);
+        } else {
+            this.pos.prev = this.pos.curr;
+        }
+        requestAnimationFrame(() =&gt; this.render());
+    }
+}
+
+(() =&gt; {
+    CURSOR = new Cursor();
+    // 需要重新获取列表时，使用 CURSOR.refresh()
+})();
+</code></pre>
+<p>其中比较重要的参数就是鼠标的尺寸和颜色，已经在上图中标出，目前发现颜色只支持 RGB 写法和固有名称写法（例如 red 这种），其他参数也可以自行摸索：</p>
+<pre><code class="language-js">* {cursor: url(&quot;data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='8px' height='8px'&gt;&lt;circle cx='4' cy='4' r='4' opacity='1.0' fill='rgb(57, 197, 187)'/&gt;&lt;/svg&gt;&quot;) 4 4, auto}`
+</code></pre>
+<ol start="2">
+<li>在 <code>[BlogRoot]\source\css\custom.css</code> 添加如下代码：</li>
+</ol>
+<pre><code class="language-css">/* 鼠标样式 */
+#cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  /* 这里改变跟随的底色 */
+  background: var(--theme-color);
+  border-radius: 8px;
+  opacity: 0.25;
+  z-index: 10086;
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
+  transition-property: background, opacity, transform;
+}
+
+#cursor.hidden {
+  opacity: 0;
+}
+
+#cursor.hover {
+  opacity: 0.1;
+  transform: scale(2.5);
+  -webkit-transform: scale(2.5);
+  -moz-transform: scale(2.5);
+  -ms-transform: scale(2.5);
+  -o-transform: scale(2.5);
+}
+
+#cursor.active {
+  opacity: 0.5;
+  transform: scale(0.5);
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -o-transform: scale(0.5);
+}
+</code></pre>
+<p><strong>这里比较重要的参数就是鼠标跟随的圆形颜色，可以根据自己的喜好进行更改：</strong></p>
+<pre><code class="language-css">#cursor {
+  /* 这里改变跟随的底色 */
+  background: rgb(57, 197, 187);
+}
+</code></pre>
+<ol start="3">
+<li>在主题配置文件<code>_config.butterfly.yml</code> 文件的 <code>inject</code> 配置项引入刚刚创建的 <code>css</code> 文件和 <code>js</code> 文件：</li>
+</ol>
+<pre><code class="language-diff">inject: 
+  head: 
++    - &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/custom.css&quot;&gt;
+  bottom:
++    - &lt;script defer src=&quot;/js/cursor.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wuai.link/post/64bbd/">
+                <h3 class="post-title">
+                  hexo主题butterfly首页字体黑夜霓虹灯效果
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wuai.link/images/avatar.png?v=1715441027957" class="no-responsive avatar">
+    <div class="text-muted">路就在脚下</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wuai.link/post/zzfy/">植物栽培实验</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/shouke/">第一次授课和管局驳回备案</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/hcyqdyh/">域名注册转入大优惠</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/3588okpl/">西部数码域名转入半价活动</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/378ll3/">typecho插件合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/8778/">提问的智慧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/4a69/">git的一些使用</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/11f1/">Git常见错误简单解决方法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/ru-he-xia-zai-an-zhuang-git/">如何下载安装git</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/dae98a7e/">Hexo插件推荐</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wuai.link/tag/35zIPvsAO/" class="badge secondary">
+          栽培
+        </a>
+      
+        <a href="https://wuai.link/tag/qnh9Do3Qx/" class="badge ">
+          生活
+        </a>
+      
+        <a href="https://wuai.link/tag/A1uMD9J45/" class="badge secondary">
+          薅羊毛
+        </a>
+      
+        <a href="https://wuai.link/tag/-cBBSHtPYb/" class="badge warning">
+          西部数码
+        </a>
+      
+        <a href="https://wuai.link/tag/W7LaiK609u/" class="badge secondary">
+          域名
+        </a>
+      
+        <a href="https://wuai.link/tag/yD9UD6T44/" class="badge secondary">
+          typecho插件
+        </a>
+      
+        <a href="https://wuai.link/tag/kc2G8x_94/" class="badge secondary">
+          碎碎念
+        </a>
+      
+        <a href="https://wuai.link/tag/IzcUs7pro/" class="badge secondary">
+          git
+        </a>
+      
+        <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge secondary">
+          教程
+        </a>
+      
+        <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge warning">
+          技术
+        </a>
+      
+        <a href="https://wuai.link/tag/8_5TE1VCQ/" class="badge ">
+          hexo插件
+        </a>
+      
+        <a href="https://wuai.link/tag/Sme-vvRu78/" class="badge ">
+          博客搭建
+        </a>
+      
+        <a href="https://wuai.link/tag/KkC2l6aHS/" class="badge secondary">
+          css美化
+        </a>
+      
+        <a href="https://wuai.link/tag/vjlrwrvx8/" class="badge ">
+          cdn
+        </a>
+      
+        <a href="https://wuai.link/tag/rzIED2ls56/" class="badge ">
+          gpg
+        </a>
+      
+        <a href="https://wuai.link/tag/vVabS1NWc/" class="badge secondary">
+          旅行
+        </a>
+      
+        <a href="https://wuai.link/tag/DdeNnxpfU/" class="badge warning">
+          挂机宝
+        </a>
+      
+        <a href="https://wuai.link/tag/2qoizTI4q/" class="badge secondary">
+          博客美化
+        </a>
+      
+        <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge ">
+          魔改
+        </a>
+      
+        <a href="https://wuai.link/tag/iQF49x2-z/" class="badge success">
+          css
+        </a>
+      
+        <a href="https://wuai.link/tag/Z7OXpqkoD/" class="badge secondary">
+          hexo
+        </a>
+      
+        <a href="https://wuai.link/tag/SCgDBzM-8/" class="badge success">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wuai.link/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

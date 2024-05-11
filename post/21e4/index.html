@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>如何配置gpg作用于github和本地 | 吾爱网络工作室</title>
+<meta name="description" content="路就在脚下">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wuai.link/favicon.ico?v=1715441027957">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wuai.link/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wuai.link">吾爱网络工作室</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>如何配置gpg作用于github和本地</h1>
+            <p class="article-meta">
+              2024-05-10
+              
+                <a href="https://wuai.link/tag/IzcUs7pro/" class="badge success">
+                  git
+                </a>
+              
+                <a href="https://wuai.link/tag/rzIED2ls56/" class="badge secondary">
+                  gpg
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p>本文主要讲述gpg的生成、配置<br>
+&lt;-- more --&gt;<br>
+ps：成功的前提是你已经安装了git，nodejs，并且拥有github账号</p>
+<h3 id="一gpg">一.GPG</h3>
+<h4 id="1下载gpg">1.下载gpg</h4>
+<p>下载并安装适用于操作系统的 GPG 命令行工具。 一般来说，我们建议安装适用于您的操作系统的最新版本。<br>
+(git内置的版本可能有点低，但是不影响使用，查看你的gpg版本)</p>
+<h4 id="2打开git-bash">2.打开Git Bash。</h4>
+<h4 id="3生成-gpg-密钥对">3.生成 GPG 密钥对。</h4>
+<p>由于 GPG 有多个版本，因此可能需要查阅相关手册页来查找相应的密钥生成命令。</p>
+<p>如果您使用的是 2.1.17 或更高版本，请粘贴以下文本以生成 GPG 密钥对。</p>
+<pre><code class="language-Shell">gpg --full-generate-key
+</code></pre>
+<p>如果使用的不是版本 2.1.17 或更高版本，则 gpg --full-generate-key 命令不起作用。 请粘贴以下文本并跳到第 6 步。</p>
+<pre><code class="language-Shell">gpg --default-new-key-algo rsa4096 --gen-key
+</code></pre>
+<h4 id="4秘钥类型">4.秘钥类型</h4>
+<p>在提示时，指定要生成的密钥类型，或按 <code>Enter</code> 键接受默认值。</p>
+<h4 id="5秘钥大小建议4096">5.秘钥大小（建议4096）</h4>
+<p>在提示时，指定要生成的密钥大小，或按 <code>Enter</code> 键接受默认值。</p>
+<h4 id="6输入密钥的有效时长">6.输入密钥的有效时长。</h4>
+<p>按 <code>Enter</code> 键将指定默认选择，表示该密钥不会过期。 除非你需要过期日期，否则我们建议接受此默认值。</p>
+<h4 id="7验证您的选择是否正确-正确请输入o即可">7.验证您的选择是否正确。(正确请输入<code>o</code>即可)</h4>
+<h4 id="8输入您的用户-id-信息">8.输入您的用户 <code>ID</code> 信息。</h4>
+<p>建议github用户名，github邮箱（此时你的邮箱已经和密钥绑定），下面comment不需要填写，直接回车<br>
+注意：要求你输入电子邮件地址时，请确保输入 <code>GitHub</code> 帐户的经过验证的电子邮件地址。 要将电子邮件地址保密，请使用 <code>GitHub</code> 提供的 <code>no-reply</code> 电子邮件地址。 有关详细信息，请参阅“验证电子邮件地址”和“设置提交电子邮件地址”。</p>
+<h4 id="9输入安全密码">9.输入安全密码</h4>
+<p>（一定要记住，以后你推送就需要输入它）</p>
+<h4 id="10保存好密钥">10.保存好密钥</h4>
+<p>14步会用到，当然下面也可以找到<br>
+使用 gpg --list-secret-keys --keyid-format=long 命令列出你拥有其公钥和私钥的长形式 <code>GPG</code> 密钥。 签名提交或标记需要私钥。</p>
+<pre><code class="language-Shell">gpg --list-secret-keys --keyid-format=long
+</code></pre>
+<p>注意：<code>Linux</code> 上的某些 <code>GPG</code> 安装可能需要改用 gpg2 --list-keys --keyid-format LONG 查看现有密钥的列表。 在这种情况下，还需要通过运行 git config --global gpg.program gpg2 来配置 Git 以使用 gpg2。</p>
+<h4 id="11查询密钥id">11.查询密钥ID</h4>
+<p>从 <code>GPG</code> 密钥列表中复制您想要使用的 <code>GPG</code> 密钥 <code>ID</code> 的长形式。 在本例中，<code>GPG</code> 密钥 <code>ID</code> 为 <code>3AA5C34371567BD2</code>：</p>
+<pre><code class="language-Shell">
+gpg --list-secret-keys --keyid-format=long
+
+/Users/hubot/.gnupg/secring.gpg
+------------------------------------
+sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
+uid                          Hubot &lt;hubot@example.com&gt;
+ssb   4096R/4BB6D45482678BE3 2016-03-10
+</code></pre>
+<h4 id="12确定你使用的密钥">12.确定你使用的密钥</h4>
+<p>粘贴下面的文本（替换为您要使用的 <code>GPG</code> 密钥 <code>ID</code>）。 在本例中，<code>GPG</code> 密钥 <code>ID</code> 为 <code>3AA5C34371567BD2</code>：</p>
+<pre><code class="language-shell">gpg --armor --export 3AA5C34371567BD2
+# Prints the GPG key ID, in ASCII armor format
+</code></pre>
+<h4 id="13复制以-begin-pgp-public-key-block-开头并以-end-pgp-public-key-block-结尾的-gpg-密钥">13.复制以 <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> 开头并以 <code>-----END PGP PUBLIC KEY BLOCK-----</code> 结尾的 GPG 密钥。</h4>
+<h4 id="14将-gpg-密钥新增到-github-帐户">14.将 <code>GPG</code> 密钥新增到 <code>GitHub</code> 帐户。</h4>
+<p>此步更为简单，进入<code>github</code>后，点击<code>右上角头像</code>，找到<code>setting</code>，进入后，<code>左侧栏</code> 有个 <code>SSH and GPG keys</code>，点击进入后，<code>title</code>（gpg名字---随便），<code>key</code>（上一步的gpg秘钥），然后点击 <code>add gpg key</code>保存即可。</p>
+<iframe src="//player.bilibili.com/player.html?bvid=BV1Jp4y1m7bi&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<p>实在不行你可以登录github后，点击它  <a href="https://github.com/settings/gpg/new">github新增GPG</a></p>
+<h4 id="15将你的签名密钥告知git">15.将你的签名密钥告知git</h4>
+<p>若要在 Git 中设置 GPG 签名主键，请粘贴下面的文本，替换要使用的 GPG 主键 <code>ID</code>。 在本例中，GPG 密钥 ID 为 <code>3AA5C34371567BD2</code>：</p>
+<pre><code class="language-shell">git config --global user.signingkey 3AA5C34371567BD2
+</code></pre>
+<p>下面的子项不建议新手使用<br>
+或者，在设置子项时包含 ! 后缀。 在本例中，GPG 子键 <code>ID</code> 为 <code>4BB6D45482678BE3</code>：</p>
+<pre><code class="language-shell">git config --global user.signingkey 4BB6D45482678BE3!
+</code></pre>
+<h4 id="16全局签名">16.全局签名</h4>
+<p>（可选）若要将 Git 配置为默认对所有提交进行签名，请输入以下命令：</p>
+<pre><code class="language-shell">git config --global commit.gpgsign true
+</code></pre>
+<h3 id="二git配置">二.GIT配置</h3>
+<p>建议本地git用户名和邮箱改为github用户名和邮箱，避免不必要的bug<br>
+如何更改请看另一篇文章   {% link git的一些使用,MIXCIの博客,https://blog.shimail.cn/posts/4a69.html %}</p>
+<h3 id="faq">FAQ</h3>
+<p>使用GPG签名后每天提交总有几次需要输入密码，神烦。<br>
+解决方案1<br>
+为什么并不是每次提交都需要密码呢，实际上他有个默认的缓存时间，但是很短，所以我们可以把它改长。</p>
+<pre><code class="language-markdown"># gpg-agent.conf
+max-cache-ttl 60480000
+default-cache-ttl 60480000
+</code></pre>
+<p>解决方案2<br>
+修改pinentry-program，mac下的pinentry-mac支持保存密码</p>
+<pre><code class="language-markdown"># gpg-agent.conf
+pinentry-program /usr/local/bin/pinentry-mac
+</code></pre>
+<p>pinentry-mac可能需要单独安装</p>
+<p>解决方案3？<br>
+可能也可以通过预设密码来解决，但是我试的时候总是报不支持，放弃<br>
+https://wiki.archlinux.org/index.php/GnuPG#Configuration</p>
+<p>参考链接<br>
+https://wiki.archlinux.org/index.php/GnuPG#Cache_passwords<br>
+https://morooi.cn/2020/github-gpg/</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wuai.link/post/5a3fb175/">
+                <h3 class="post-title">
+                  何处才是尽头
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wuai.link/images/avatar.png?v=1715441027957" class="no-responsive avatar">
+    <div class="text-muted">路就在脚下</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wuai.link/post/zzfy/">植物栽培实验</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/shouke/">第一次授课和管局驳回备案</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/hcyqdyh/">域名注册转入大优惠</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/3588okpl/">西部数码域名转入半价活动</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/378ll3/">typecho插件合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/8778/">提问的智慧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/4a69/">git的一些使用</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/11f1/">Git常见错误简单解决方法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/ru-he-xia-zai-an-zhuang-git/">如何下载安装git</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/dae98a7e/">Hexo插件推荐</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wuai.link/tag/35zIPvsAO/" class="badge warning">
+          栽培
+        </a>
+      
+        <a href="https://wuai.link/tag/qnh9Do3Qx/" class="badge ">
+          生活
+        </a>
+      
+        <a href="https://wuai.link/tag/A1uMD9J45/" class="badge secondary">
+          薅羊毛
+        </a>
+      
+        <a href="https://wuai.link/tag/-cBBSHtPYb/" class="badge ">
+          西部数码
+        </a>
+      
+        <a href="https://wuai.link/tag/W7LaiK609u/" class="badge ">
+          域名
+        </a>
+      
+        <a href="https://wuai.link/tag/yD9UD6T44/" class="badge success">
+          typecho插件
+        </a>
+      
+        <a href="https://wuai.link/tag/kc2G8x_94/" class="badge success">
+          碎碎念
+        </a>
+      
+        <a href="https://wuai.link/tag/IzcUs7pro/" class="badge success">
+          git
+        </a>
+      
+        <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge secondary">
+          教程
+        </a>
+      
+        <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge ">
+          技术
+        </a>
+      
+        <a href="https://wuai.link/tag/8_5TE1VCQ/" class="badge ">
+          hexo插件
+        </a>
+      
+        <a href="https://wuai.link/tag/Sme-vvRu78/" class="badge ">
+          博客搭建
+        </a>
+      
+        <a href="https://wuai.link/tag/KkC2l6aHS/" class="badge ">
+          css美化
+        </a>
+      
+        <a href="https://wuai.link/tag/vjlrwrvx8/" class="badge secondary">
+          cdn
+        </a>
+      
+        <a href="https://wuai.link/tag/rzIED2ls56/" class="badge secondary">
+          gpg
+        </a>
+      
+        <a href="https://wuai.link/tag/vVabS1NWc/" class="badge ">
+          旅行
+        </a>
+      
+        <a href="https://wuai.link/tag/DdeNnxpfU/" class="badge secondary">
+          挂机宝
+        </a>
+      
+        <a href="https://wuai.link/tag/2qoizTI4q/" class="badge success">
+          博客美化
+        </a>
+      
+        <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge success">
+          魔改
+        </a>
+      
+        <a href="https://wuai.link/tag/iQF49x2-z/" class="badge success">
+          css
+        </a>
+      
+        <a href="https://wuai.link/tag/Z7OXpqkoD/" class="badge success">
+          hexo
+        </a>
+      
+        <a href="https://wuai.link/tag/SCgDBzM-8/" class="badge warning">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wuai.link/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

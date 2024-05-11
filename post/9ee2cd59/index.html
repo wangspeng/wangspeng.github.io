@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>hexo 主题butterfly如何让你的博客拥有星空背景和流星特效 | 吾爱网络工作室</title>
+<meta name="description" content="路就在脚下">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wuai.link/favicon.ico?v=1715441027957">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wuai.link/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wuai.link">吾爱网络工作室</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>hexo 主题butterfly如何让你的博客拥有星空背景和流星特效</h1>
+            <p class="article-meta">
+              2024-05-10
+              
+                <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge success">
+                  魔改
+                </a>
+              
+                <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge success">
+                  教程
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p>切换夜间暗黑模式后主题显示星空特效，并且还有流星</p>
+<!-- more -->
+<p>最近很多小伙伴留言想要星空和流星特效，于是写了这篇文章准备介绍如何部署。</p>
+<h1 id="创建js文件">创建js文件</h1>
+<ol>
+<li>插入Canvas标签<br>
+首先打开Butterfly主题的<code>_config.yml</code>文件或者使用HTML直接插入，找到配置文件对应的<code>inject</code>部分</li>
+</ol>
+<p>插入<code>&lt;canvas id=&quot;universe&quot;&gt;&lt;/canvas&gt;</code></p>
+<ol start="2">
+<li>创建JS文件<br>
+在<code>butterfly/source/js/</code>创建一个<code>universe.js</code>文件，或者添加到自己的js文件中</li>
+</ol>
+<pre><code class="language-js">function dark() {window.requestAnimationFrame=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;var n,e,i,h,t=.05,s=document.getElementById(&quot;universe&quot;),o=!0,a=&quot;180,184,240&quot;,r=&quot;226,225,142&quot;,d=&quot;226,225,224&quot;,c=[];function f(){n=window.innerWidth,e=window.innerHeight,i=.216*n,s.setAttribute(&quot;width&quot;,n),s.setAttribute(&quot;height&quot;,e)}function u(){h.clearRect(0,0,n,e);for(var t=c.length,i=0;i&lt;t;i++){var s=c[i];s.move(),s.fadeIn(),s.fadeOut(),s.draw()}}function y(){this.reset=function(){this.giant=m(3),this.comet=!this.giant&amp;&amp;!o&amp;&amp;m(10),this.x=l(0,n-10),this.y=l(0,e),this.r=l(1.1,2.6),this.dx=l(t,6*t)+(this.comet+1-1)*t*l(50,120)+2*t,this.dy=-l(t,6*t)-(this.comet+1-1)*t*l(50,120),this.fadingOut=null,this.fadingIn=!0,this.opacity=0,this.opacityTresh=l(.2,1-.4*(this.comet+1-1)),this.do=l(5e-4,.002)+.001*(this.comet+1-1)},this.fadeIn=function(){this.fadingIn&amp;&amp;(this.fadingIn=!(this.opacity&gt;this.opacityTresh),this.opacity+=this.do)},this.fadeOut=function(){this.fadingOut&amp;&amp;(this.fadingOut=!(this.opacity&lt;0),this.opacity-=this.do/2,(this.x&gt;n||this.y&lt;0)&amp;&amp;(this.fadingOut=!1,this.reset()))},this.draw=function(){if(h.beginPath(),this.giant)h.fillStyle=&quot;rgba(&quot;+a+&quot;,&quot;+this.opacity+&quot;)&quot;,h.arc(this.x,this.y,2,0,2*Math.PI,!1);else if(this.comet){h.fillStyle=&quot;rgba(&quot;+d+&quot;,&quot;+this.opacity+&quot;)&quot;,h.arc(this.x,this.y,1.5,0,2*Math.PI,!1);for(var t=0;t&lt;30;t++)h.fillStyle=&quot;rgba(&quot;+d+&quot;,&quot;+(this.opacity-this.opacity/20*t)+&quot;)&quot;,h.rect(this.x-this.dx/4*t,this.y-this.dy/4*t-2,2,2),h.fill()}else h.fillStyle=&quot;rgba(&quot;+r+&quot;,&quot;+this.opacity+&quot;)&quot;,h.rect(this.x,this.y,this.r,this.r);h.closePath(),h.fill()},this.move=function(){this.x+=this.dx,this.y+=this.dy,!1===this.fadingOut&amp;&amp;this.reset(),(this.x&gt;n-n/4||this.y&lt;0)&amp;&amp;(this.fadingOut=!0)},setTimeout(function(){o=!1},50)}function m(t){return Math.floor(1e3*Math.random())+1&lt;10*t}function l(t,i){return Math.random()*(i-t)+t}f(),window.addEventListener(&quot;resize&quot;,f,!1),function(){h=s.getContext(&quot;2d&quot;);for(var t=0;t&lt;i;t++)c[t]=new y,c[t].reset();u()}(),function t(){document.getElementsByTagName('html')[0].getAttribute('data-theme')=='dark'&amp;&amp;u(),window.requestAnimationFrame(t)}()};
+dark()
+
+</code></pre>
+<p>代码最后这一部分要求<strong>data-theme</strong>也就是主题为<strong>dark</strong>暗色主题，因此仅在暗色主题生效，随后将<strong>js</strong>文件添加到配置文件的inject处或者其他需要的位置。</p>
+<h1 id="创建css文件">创建css文件</h1>
+<ol>
+<li>CSS样式 在 <code>[BlogRoot]/source/css</code> 目录下新建 <code>universe.css</code>，输入以下代码：</li>
+</ol>
+<pre><code class="language-css">/* 背景宇宙星光  */
+#universe{
+  display: block;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+</code></pre>
+<h1 id="引入文件">引入文件</h1>
+<ol>
+<li>在主题配置文件<code>_config.butterfly.yml</code> 的 <code>inject</code> 配置项中 <code>bottom</code> 下填入：</li>
+</ol>
+<pre><code class="language-ymd">inject:
+  bottom:
+   - &lt;canvas id=&quot;universe&quot;&gt;&lt;/canvas&gt;
+   - &lt;script defer src=&quot;/js/universe.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ol start="2">
+<li>在主题配置文件<code>_config.butterfly.yml</code> 的 <code>inject</code> 配置项中 <code>head</code> 下填入：</li>
+</ol>
+<pre><code class="language-ymd">inject:
+  head:
+   - &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/universe.css&quot;&gt;
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wuai.link/post/81fa/">
+                <h3 class="post-title">
+                  如何注册github账户
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wuai.link/images/avatar.png?v=1715441027957" class="no-responsive avatar">
+    <div class="text-muted">路就在脚下</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wuai.link/post/zzfy/">植物栽培实验</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/shouke/">第一次授课和管局驳回备案</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/hcyqdyh/">域名注册转入大优惠</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/3588okpl/">西部数码域名转入半价活动</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/378ll3/">typecho插件合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/8778/">提问的智慧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/4a69/">git的一些使用</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/11f1/">Git常见错误简单解决方法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/ru-he-xia-zai-an-zhuang-git/">如何下载安装git</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wuai.link/post/dae98a7e/">Hexo插件推荐</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wuai.link/tag/35zIPvsAO/" class="badge secondary">
+          栽培
+        </a>
+      
+        <a href="https://wuai.link/tag/qnh9Do3Qx/" class="badge warning">
+          生活
+        </a>
+      
+        <a href="https://wuai.link/tag/A1uMD9J45/" class="badge ">
+          薅羊毛
+        </a>
+      
+        <a href="https://wuai.link/tag/-cBBSHtPYb/" class="badge ">
+          西部数码
+        </a>
+      
+        <a href="https://wuai.link/tag/W7LaiK609u/" class="badge secondary">
+          域名
+        </a>
+      
+        <a href="https://wuai.link/tag/yD9UD6T44/" class="badge secondary">
+          typecho插件
+        </a>
+      
+        <a href="https://wuai.link/tag/kc2G8x_94/" class="badge secondary">
+          碎碎念
+        </a>
+      
+        <a href="https://wuai.link/tag/IzcUs7pro/" class="badge success">
+          git
+        </a>
+      
+        <a href="https://wuai.link/tag/j7EsmzxPl/" class="badge secondary">
+          教程
+        </a>
+      
+        <a href="https://wuai.link/tag/abQH8BwvUF/" class="badge warning">
+          技术
+        </a>
+      
+        <a href="https://wuai.link/tag/8_5TE1VCQ/" class="badge ">
+          hexo插件
+        </a>
+      
+        <a href="https://wuai.link/tag/Sme-vvRu78/" class="badge success">
+          博客搭建
+        </a>
+      
+        <a href="https://wuai.link/tag/KkC2l6aHS/" class="badge secondary">
+          css美化
+        </a>
+      
+        <a href="https://wuai.link/tag/vjlrwrvx8/" class="badge ">
+          cdn
+        </a>
+      
+        <a href="https://wuai.link/tag/rzIED2ls56/" class="badge secondary">
+          gpg
+        </a>
+      
+        <a href="https://wuai.link/tag/vVabS1NWc/" class="badge ">
+          旅行
+        </a>
+      
+        <a href="https://wuai.link/tag/DdeNnxpfU/" class="badge success">
+          挂机宝
+        </a>
+      
+        <a href="https://wuai.link/tag/2qoizTI4q/" class="badge ">
+          博客美化
+        </a>
+      
+        <a href="https://wuai.link/tag/Lv9cjv8la/" class="badge success">
+          魔改
+        </a>
+      
+        <a href="https://wuai.link/tag/iQF49x2-z/" class="badge secondary">
+          css
+        </a>
+      
+        <a href="https://wuai.link/tag/Z7OXpqkoD/" class="badge secondary">
+          hexo
+        </a>
+      
+        <a href="https://wuai.link/tag/SCgDBzM-8/" class="badge success">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wuai.link/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
